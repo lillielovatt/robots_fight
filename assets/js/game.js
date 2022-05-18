@@ -68,16 +68,36 @@ var shop = function(){
     var shopOption = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
     switch(shopOption){
         case "REFILL":
-            console.log("refill");
-            break;
+        case "refill":
+           if(playerMoney<7){
+                window.alert("You only have " + playerMoney + " dollars. You need at least 7 dollars to refill.");
+                shop();
+                break;
+            } else{
+                window.alert("Refilling player's health by 20 for 7 dollars.");
+                playerHealth+=20;
+                playerMoney-=7;
+                break;
+            }
         case "UPGRADE":
-            console.log("up");
-            break;
+        case "upgrade":
+            if(playerMoney<7){
+                window.alert("You only have " + playerMoney + " dollars. You need at least 7 dollars to upgrade.");
+                shop();
+                break;
+            } else{
+                window.alert("Upgrading player's attack by 6 for 7 dollars.");
+                playerAttack+=6;
+                playerMoney-=7;
+                break;
+            }
         case "LEAVE":
-            console.log("leave");
+        case "leave":
+            window.alert("Leaving the store.");
             break;
         default:
-            console.log("you didnt enter fight or skip");
+            window.alert("You didn't pick a valid option. Try again.");
+            shop();
             break;
     }
 }
