@@ -83,9 +83,20 @@ var shop = function(){
     }
 }
 
+var getPlayerName = function(){
+    var name = "";
+    // I want to say, !=name here instead of:
+    // also what exactly is null, that entering a blank string and the null case both have to be voided out
+    // but you don't really need to worry about both because theyre sort of the same?
+    // if I enter null into the field, it accepts it as the string "null"
+    while(name==="" || name===null){
+        name=window.prompt("What is your robot's name?");
+    }
+    return name;
+}
 
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack:10,
     money:10,
