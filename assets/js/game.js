@@ -27,7 +27,7 @@ var fightOrSkip = function(){
 
 var fight = function(enemyName) {
     while(enemyName.health>0 && playerInfo.health>0){
-        if (!fightOrSkip){
+        if (!fightOrSkip()){
             break;
         }
         var damage = randomNumber(playerInfo.attack-3, playerInfo.attack);
@@ -70,18 +70,16 @@ var endGame = function(){
 }
 
 var shop = function(){
-    var shopOption = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+    var shopOption = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE.");
+    shopOption=parseInt(shopOption);
     switch(shopOption){
-        case "REFILL":
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
-        case "UPGRADE":
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
-        case "LEAVE":
-        case "leave":
+        case 3:
             window.alert("Leaving the store.");
             break;
         default:
@@ -126,7 +124,7 @@ var playerInfo = {
     },
     upgradeAttack: function(){
         if(this.money<7){
-            window.alert("You only have " + this.money + " dollars. You need at least 7 dollars to upgrade.");
+            window.alert("You have " + this.money + " dollars. You need at least 7 dollars to upgrade.");
             shop();
         }
         else{
