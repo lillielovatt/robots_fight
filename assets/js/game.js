@@ -26,32 +26,43 @@ var fightOrSkip = function(){
 
 
 var fight = function(enemyName) {
+    if (!fightOrSkip()){
+        return;
+    }
+    var isPlayerTurn = true;
+        if(Math.random() > .5){
+            isPlayerTurn=false;
+        }
     while(enemyName.health>0 && playerInfo.health>0){
-        if (!fightOrSkip()){
-            break;
+        var isPlayerTurn = true;
+        if(Math.random() > .5){
+            isPlayerTurn=false;
         }
-        var damage = randomNumber(playerInfo.attack-3, playerInfo.attack);
-        enemyName.health = Math.max(0,enemyName.health - damage);
-        console.log(playerInfo.name + " attacked " + enemyName.name + ". " + enemyName.name +" now has " + enemyName.health + " health remaining.");
-        if (enemyName.health<=0){
-            window.alert(enemyName.name + " has died!")
-            playerInfo.money=playerInfo.money+20;
-            break;
+        if(isPlayerTurn){
+            var damage = randomNumber(playerInfo.attack-3, playerInfo.attack);
+            enemyName.health = Math.max(0,enemyName.health - damage);
+            console.log(playerInfo.name + " attacked " + enemyName.name + ". " + enemyName.name +" now has " + enemyName.health + " health remaining.");
+            if (enemyName.health<=0){
+                window.alert(enemyName.name + " has died!")
+                playerInfo.money=playerInfo.money+20;
+                break;
+            }
+            else{
+                window.alert(enemyName.name + " still has " + enemyName.health + " health left.");
+            }
+        } else{
+                var damage = randomNumber(enemyName.attack-3, enemyName.attack);
+                playerInfo.health = Math.max(0,playerInfo.health - damage);
+                console.log(enemyName.name + " attacked "+ playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");
+            if (playerInfo.health<=0){
+                window.alert(playerInfo.name + " has died!")
+                break;
+            }
+            else{
+                window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
+            }
         }
-        else{
-            window.alert(enemyName.name + " still has " + enemyName.health + " health left.");
-        }
-        
-        var damage = randomNumber(enemyName.attack-3, enemyName.attack);
-        playerInfo.health = Math.max(0,playerInfo.health - damage);
-        console.log(enemyName.name + " attacked "+ playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");
-        if (playerInfo.health<=0){
-            window.alert(playerInfo.name + " has died!")
-            break;
-        }
-        else{
-            window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
-        }
+        // isPlayerTurn=!isPlayerTurn;
     }
 }
     
