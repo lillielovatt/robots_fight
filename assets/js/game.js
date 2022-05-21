@@ -1,4 +1,5 @@
 // function called "fight"
+localStorage.setItem("highScore", "0");
 var randomNumber = function(min, max){
     var value = Math.floor(Math.random() * (max-min+1)) + min;
     return value;
@@ -62,16 +63,29 @@ var fight = function(enemyName) {
                 window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
             }
         }
-        // isPlayerTurn=!isPlayerTurn;
     }
 }
     
 var endGame = function(){
+    // checking to see if high score has been initialized
+    var highScore = localStorage.getItem("highscore");
+    // highScore = highScore || 0;
+    if(!highScore){
+        highScore=0;
+    }
+    // determining win/lose
     var winMessage ="Oh no, you lost! ";
     if(playerInfo.health>0){
-        var winMessage ="Yay, you won! ";
+        var winMessage ="You won! ";
     }
-    var playAgain=window.confirm(winMessage + "Your health is " + playerInfo.health + " and your money is " + playerInfo.money + ". Do you want to play again?");
+
+    var highScoreMessage = "You didn't beat the current high score of " + localStorage.getItem("highscore");
+    if(playerInfo.money>parseInt(highScore)){ 
+        var highScoreMessage = "Wow, you beat the current high score of " + localStorage.getItem("highscore");
+        localStorage.setItem("highscore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
+    }
+    var playAgain=window.confirm(winMessage + highScoreMessage + ". Your health is " + playerInfo.health + " and your money is " + playerInfo.money + ". Do you want to play again?");
     if(playAgain){
         startGame();
     }
@@ -186,6 +200,8 @@ var startGame = function(){
 
 // start game when page loads
 startGame();
+
+
 
 
 
